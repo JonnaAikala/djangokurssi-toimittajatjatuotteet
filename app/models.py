@@ -16,5 +16,5 @@ class Product(models.Model):
     unitprice = models.DecimalField(max_digits=8, decimal_places=2, default=1.00)
     unitsinstock = models.IntegerField(default = 3)
     supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
-def __str__(self):
-    return f"{self.productname} produced by {self.supplier.companyname}"
+    def __str__(self):
+        return f"{self.productname} produced by {self.supplier.companyname}"
