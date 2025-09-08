@@ -1,0 +1,28 @@
+databases:
+  - name: toimittajatjatuotteetdb
+    plan: free
+    databaseName: toimittajatjatuotteet
+    user: jonna
+
+services:
+  - type: web
+    plan: free
+    name: toimittajatjatuotteet
+    runtime: python
+    buildCommand: './build.sh'
+    startCommand: 'python -m gunicorn mysite.asgi:application -k uvicorn.workers.UvicornWorker' 
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: toimittajatjatuotteetdb
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
+      - key: DJANGO_SUPERUSER_USERNAME
+        value: "jonna"
+      - key: DJANGO_SUPERUSER_PASSWORD
+        value: "testaaja"
+      - key: DJANGO_SUPERUSER_EMAIL
+        value: "super@usersuper.fi"
